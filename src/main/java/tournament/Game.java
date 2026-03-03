@@ -1,0 +1,9 @@
+package tournament;
+
+public abstract class Game {
+
+	public Game() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
