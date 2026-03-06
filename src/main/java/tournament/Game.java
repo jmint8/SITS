@@ -12,7 +12,30 @@ public abstract class Game {
 	
 	protected abstract GameResult computeFinalResult(GameHistory history);
 	
+	public void addObserver(GameObserver observer)
+	{
+        observers.add(observer);
+    }
 	
+    public void removeObserver(GameObserver observer)
+    {
+        observers.remove(observer);
+    }
+    
+    protected void notifyMoveMade(MoveEvent event) 
+    {
+        for (GameObserver observer : observers) {
+            observer.onMoveMade(event);
+        }
+    }
+    
+    protected void notifyGameOver(GameResult result)
+    {
+        for (GameObserver observer : observers) {
+            observer.onGameEnd(result);
+        }
+    }
+    
+    //TODO
 	
-
 }
