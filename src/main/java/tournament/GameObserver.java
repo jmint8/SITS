@@ -2,8 +2,7 @@ package tournament;
 
 public interface GameObserver 
 {
-	void onMove(MoveEvent event);
-	
+	void onMoveMade(MoveEvent event);
+	void onTournamentEnd(TournamentResult result);
 	void onGameEnd(GameResult result);
-	
 }
