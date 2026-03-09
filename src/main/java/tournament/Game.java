@@ -48,7 +48,6 @@ public abstract class Game {
     	GameResult finalR = computeFinalResult(history);
         notifyGameOver(finalR);
         return finalR;
-    	
     }
 	
 }
