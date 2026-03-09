@@ -36,6 +36,19 @@ public abstract class Game {
         }
     }
     
-    //TODO
+    public GameResult play(Participant p1, Participant p2) {
+    	GameHistory history = new GameHistory(p1.getName(),p2.getName());
+    	
+    	while (!isOver(history)) {
+    		RoundResult roundResult = doRound(p1, p2, history);
+            history.getRounds().add(roundResult);
+            notifyMoveMade(new MoveEvent(history, roundResult));
+    	}
+    	
+    	GameResult finalR = computeFinalResult(history);
+        notifyGameOver(finalR);
+        return finalR;
+    	
+    }
 	
 }
