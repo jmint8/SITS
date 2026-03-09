@@ -19,9 +19,8 @@ public class TournamentResult {
 	}
 	
 	public List<String> getRankings(){
-		//TODO
-		return null;
+		List<String> ranks = new java.util.ArrayList<>(scores.keySet());
+		ranks.sort((p1, p2) -> scores.get(p2).compareTo(scores.get(p1)));
+		return ranks;
 	}
-	
-	
 }

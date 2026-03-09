@@ -43,7 +43,7 @@ public abstract class Game {
     		
     		RoundResult roundResult = doRound(p1,p2, history);
             history.getRounds().add(roundResult);
-            notifyMoveMade(new MoveEvent (history, roundResult));
+            notifyMoveMade(new MoveEvent(history, roundResult));
     	}
     	GameResult finalR = computeFinalResult(history);
         notifyGameOver(finalR);
