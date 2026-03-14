@@ -3,6 +3,9 @@ package SITS.Actions;
 import SITS.Game.GameHistory;
 import SITS.Game.RoundResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TitForTat implements Participant {
 
 	@Override
@@ -17,6 +20,7 @@ public class TitForTat implements Participant {
 		if (lastRound == null) {
 			return PrisonerAction.COOPERATE;
 		}
+		
 		
 		if(history.getP1Name().equals(this.getName())) {
 			return lastRound.getActionP2();
