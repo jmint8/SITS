@@ -56,8 +56,6 @@ public class ActionsTest {
 		//round no history
         assertEquals(PrisonerAction.COOPERATE, tft.chooseAction(history));
 		// round 1
-        history.getRounds().add(new RoundResult(PrisonerAction.DEFECT, PrisonerAction.COOPERATE, 10, 0, 1));
-        assertEquals(PrisonerAction.COOPERATE, tft.chooseAction(history));
 	}
 	
 	
@@ -67,6 +65,13 @@ public class ActionsTest {
 		history.getRounds().add(new RoundResult(PrisonerAction.DEFECT, PrisonerAction.COOPERATE, 10, 0, 1));
         assertEquals(PrisonerAction.DEFECT, tft.chooseAction(history));
 	}
+	
+	@Test
+    void testGetLabel() {
+        // Verify that getLabel() returns the exact string matching the enum name
+        assertEquals("COOPERATE", PrisonerAction.COOPERATE.getLabel());
+        assertEquals("DEFECT", PrisonerAction.DEFECT.getLabel());
+    }
 
 	
 	

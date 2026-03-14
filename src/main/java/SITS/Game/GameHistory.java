@@ -30,7 +30,7 @@ public class GameHistory {
 	
 	
 	public RoundResult getLastRound(){
-		if(rounds == null || rounds.isEmpty()) {
+		if(rounds.isEmpty()) {
 			return null;
 		}
 		return rounds.get(rounds.size() - 1);

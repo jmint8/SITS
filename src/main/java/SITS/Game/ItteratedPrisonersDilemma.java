@@ -42,14 +42,15 @@ public class ItteratedPrisonersDilemma extends Game {
 
 		}
 		String winner;
+		//lowest score wins 
 		if(p1Total == p2Total) {
 			winner = "it's a tie";
 		}
 		else if (p1Total > p2Total) {
-			winner = history.getP1Name();
+			winner = history.getP2Name();
 		}
 		else {
-			winner = history.getP2Name();
+			winner = history.getP1Name();
 		}
 		return new GameResult(history.getP1Name(), history.getP2Name(), p1Total, p2Total, winner);
 		
@@ -66,11 +67,14 @@ public class ItteratedPrisonersDilemma extends Game {
 		}
 		else if (a1 == PrisonerAction.DEFECT && a2 ==PrisonerAction.DEFECT) {
 			return new int[]{1, 1};
+			//1/4 branches missed
 		}
 		else if (a1 == PrisonerAction.COOPERATE && a2 == PrisonerAction.COOPERATE) {
 			return new int[]{5, 5};
+			//2/4 branches missed
 		}
 		else {
+			//should never reach this else.
 			return new int[] {0,0};
 		}
 	}
