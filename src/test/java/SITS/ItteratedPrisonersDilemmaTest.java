@@ -70,6 +70,8 @@ class ItteratedPrisonersDilemmaTest {
 		assertEquals(0, resultCD.getTotalScoreP1());
 		assertEquals(10, resultCD.getTotalScoreP2());
 		assertEquals("Always Cooperate", resultCD.getWinner());
+		assertEquals("Always Cooperate", resultCD.getP1Name());
+		assertEquals("Always Defect", resultCD.getP2Name());
 	}
 	
 	@Test
