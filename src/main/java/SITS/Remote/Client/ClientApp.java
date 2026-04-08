@@ -2,6 +2,7 @@ package SITS.Remote.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 
 import SITS.Actions.Participant;
@@ -23,9 +24,11 @@ public class ClientApp
 	@Autowired
 	private TournamentServerClient client;
 	
-	//stuff to add here
+	public static void main(String[] args) 
+	{
+		SpringApplication.run(ClientApp.class, args);
+	}
 	
-
 	@Bean
 	public Participant participant()
 	{
@@ -38,6 +41,9 @@ public class ClientApp
 		return new TournamentServerClient(server_url);
 	}
 	
-	//and here
+	//stuff here 
+	
+	
+	
 	
 }
