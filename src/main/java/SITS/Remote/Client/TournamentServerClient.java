@@ -21,10 +21,38 @@ public class TournamentServerClient {
 	//methods for this. 
 	//why are we using rest template and not rest client again? 
 	//anyways I digress. 
-	/*diego designed this on a Saturday alone without us and didn't tell us until
-	 * after. then proceeded to ghost us until after the presentation of the design */
+	/*diego designed this whole thing on a Saturday alone without us and didn't tell us until
+	 * after. then proceeded to ghost us until after the presentation of the design which was like 
+	 * 5 days.*/
+	
 	//and since the Remote PArticipant is using Remote Template i guess I'll keep the same style
 
+	
+	/*I feel like this should be more like : 
+
+	public TournamentServerClient(String server_url) 
+	{
+    	this.server_url = server_url;
+    	this.client = RestClient.create(); 
+
+    }
+    or even the whole thing in Main() like how the restPassowrdServer 
+    Example looks like.
+    
+    if im keeping with the design document then the list tounaments would look closer to this
+    
+    public List<?> listTournaments() {
+         return client.get()
+				.uri(serverUrl + "/tournaments")
+                .retrieve()
+                .body(List.class);
+	} 
+	like why am I doing this stupid rest template stuff. anyways. 
+	in the pursuit of knowledge i guess. 
+	
+	i did not digress in my earlier comment. 
+	
+	 * */
 	
 	//should only be read only here so I guess this <?> is fine 
 	public List<?> listTournaments()
