@@ -13,6 +13,8 @@ public class GameHistoryDTO {
 	public String nameP2;
 	public List<RoundResultDTO> rounds;
 	
+	public GameHistoryDTO(){} 
+	
 	public GameHistoryDTO(String nameP1, String nameP2, List<RoundResultDTO> rounds) {
 		this.nameP1 = nameP1;
 		this.nameP2 = nameP2;

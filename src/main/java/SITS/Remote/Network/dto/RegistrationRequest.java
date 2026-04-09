@@ -6,6 +6,8 @@ public class RegistrationRequest {
 	public String ip;
 	public int port;
 	
+	public RegistrationRequest() {} 
+	
 	public RegistrationRequest(String name,String ip,int port) {
 		this.name = name;
 		this.ip = ip;

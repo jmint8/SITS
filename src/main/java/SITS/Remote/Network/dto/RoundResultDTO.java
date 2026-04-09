@@ -6,6 +6,9 @@ public class RoundResultDTO {
 	public String actionP2;
 	public int payoffP1;
 	public int payoffP2;
+	
+	public RoundResultDTO() {} 
+	
 
 	public RoundResultDTO(String actionP1, String actionP2, int payoffP1, int payoffP2) {
 		this.actionP1 = actionP1;

@@ -33,10 +33,9 @@ public class TournamentServerController
 	@PostMapping("/register/{id}")
 	public ResponseEntity<String> register(@PathVariable String id, @RequestBody RegistrationRequest body) 
 	{
-		return null;
 		//TODO
+		return null;
 	}
-	
 	
 	@PostMapping("/start/{id}")
 	public TournamentResult start(@PathVariable String id) 
@@ -45,5 +44,4 @@ public class TournamentServerController
 		//TODO
 	}
 	
-
 }
