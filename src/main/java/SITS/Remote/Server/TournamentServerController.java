@@ -33,15 +33,26 @@ public class TournamentServerController
 	@PostMapping("/register/{id}")
 	public ResponseEntity<String> register(@PathVariable String id, @RequestBody RegistrationRequest body) 
 	{
-		//TODO
-		return null;
+		NetworkedTournament tournament=registry.get(id); 
+		
+		if (tournament == null)
+		{
+			return ResponseEntity.badRequest().body("can't acquire tournament status:"+id);
+		}
+		else if (tournament.getStatus() !=TournamentStatus.REGISTERING)  
+		{
+			return ResponseEntity.badRequest().body("registrations are closed");
+		}
+		
+		tournament.addRemoteParticipant(body);
+		return ResponseEntity.ok("registered "+body.name+" to tournament id"+id);
 	}
 	
 	@PostMapping("/start/{id}")
 	public TournamentResult start(@PathVariable String id) 
 	{
-		return null;
-		//TODO
+		NetworkedTournament tournament = registry.get(id);
+		return tournament.start();
 	}
 	
 }
