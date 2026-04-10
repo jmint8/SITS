@@ -1,4 +1,4 @@
-package SITS.Remote.Client;
+package SITS.Remote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
