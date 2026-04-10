@@ -7,6 +7,10 @@ import java.util.Map;
 public class TournamentResult {
 	private Map<String, Integer> scores;
 	
+	public Map<String, Integer> getScores() {
+		return scores;
+	}
+	
 	public TournamentResult(Map<String, Integer> scores) {
 		this.scores = new HashMap<>(scores);
 	}
