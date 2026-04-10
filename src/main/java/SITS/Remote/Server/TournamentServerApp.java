@@ -8,7 +8,11 @@ import SITS.Game.ItteratedPrisonersDilemma;
 import SITS.Game.RoundRobin;
 
 
-@SpringBootApplication(scanBasePackages = "SITS")
+@SpringBootApplication(scanBasePackages = {
+	    "SITS.Remote.Server", 
+	    "SITS.Game", 
+	    "SITS.Actions", 
+	    "SITS.Observers"})
 public class TournamentServerApp 
 {
 	//I guess this wasn't in the design document but think this is going to be the

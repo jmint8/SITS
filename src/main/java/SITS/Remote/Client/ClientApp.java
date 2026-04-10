@@ -15,7 +15,12 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import SITS.Actions.Participant;
 import SITS.Actions.TitForTat;
 
-@SpringBootApplication(scanBasePackages = "SITS")
+@SpringBootApplication(scanBasePackages = {
+	    "SITS.Remote.Client",
+	    "SITS.Remote.Network",
+	    "SITS.Game", 
+	    "SITS.Actions", 
+	    "SITS.Observers"})
 public class ClientApp 
 {
 	private int port;

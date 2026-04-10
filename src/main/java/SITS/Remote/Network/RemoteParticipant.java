@@ -23,7 +23,7 @@ public class RemoteParticipant implements Participant {
 	 * 
 	 * this one is for testing
 	 */
-	RemoteParticipant(String name, String url, Function<String, Action> actionFactory, RestTemplate restTemp) {
+	public RemoteParticipant(String name, String url, Function<String, Action> actionFactory, RestTemplate restTemp) {
 		this.name = name;
 		this.url = url;
 		this.actionFactory = actionFactory;
