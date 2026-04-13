@@ -2,15 +2,15 @@
 
 ## Core Server Components
 
-### 1. `NetworkedTournament.java`[ ]
+### 1. `NetworkedTournament.java`[x]
 
-### 2. `TournamentRegistry.java`[ ]
+### 2. `TournamentRegistry.java`[x]
 
-### 3. `TournamentServerController.java` [ ]
+### 3. `TournamentServerController.java` [x]
 
 ## Testing
 
-### 4. `DTOTests.java`[ ]
+### 4. `DTOTests.java`[x]
 
 ### 5. `NetworkTests.java`[ ] 
 
