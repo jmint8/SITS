@@ -18,6 +18,8 @@ public class TournamentServerClient {
 		this.restTemplate = new RestTemplate();
 	}
 	
+	
+	
 	//methods for this. 
 	//why are we using rest template and not rest client again? 
 	//anyways I digress. 
@@ -54,6 +56,21 @@ public class TournamentServerClient {
 	
 	 * */
 	
+	/**
+	 * @return the server_url for testing
+	 */
+	public String getServer_url() {
+		return server_url;
+	}
+
+	/**
+	 * @return the restTemplate for testing
+	 */
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+
+
 	//should only be read only here so I guess this <?> is fine 
 	public List<?> listTournaments()
 	{
