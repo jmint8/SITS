@@ -30,7 +30,8 @@ class NetworkTests {
 	}
 
 	//I know human participant is in this package but I'm going to do it in a separate test file
-	
+	//amendment to the comment, testing for human participant does not need to happen
+	//professor made a class wide decision. 
 	
 	//String action test, i still have it in there. 
 	@Test
