@@ -70,10 +70,15 @@ class ClientTests {
 		String url = "http://localhost:" + port + "/action";
 		GameHistoryDTO dto = new GameHistoryDTO( "TitForTat", "Opponent",new ArrayList<>()); 
 		ResponseEntity<String> response = restTemp.postForEntity(url, dto, String.class);
-		
 		assertEquals("COOPERATE", response.getBody());
 	}
 
+	@Test
+	void resetTest() {
+		String url = "http://localhost:"+port+"/reset";
+		ResponseEntity<Void> response = restTemp.postForEntity(url, null, Void.class);
+		assertTrue(response.getStatusCode().is2xxSuccessful());
+	}
 
 
 
