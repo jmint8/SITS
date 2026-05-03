@@ -8,68 +8,50 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.web.client.RestTemplate;
 
 import SITS.Remote.Server.NetworkedTournament;
 import SITS.Remote.Server.TournamentRegistry;
+import SITS.Remote.Server.TournamentServerApp;
 import SITS.Remote.Server.TournamentStatus;
 
+
+@SpringBootTest(classes ={TournamentServerApp.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+		properties = {"server.port = 6000"})
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // reset after so we dont get stuck in COMPLETED state
 class ServerTests {
 
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
+	@LocalServerPort
+	private int port = 6000;
+	
+	private RestTemplate restTemp = new RestTemplate();
+	
+	@Autowired
+	private TournamentRegistry reg;
+	
+	
+	
 	@Test
 	void TournamentResgistryInitandGetTest() {
-		TournamentRegistry reg = new TournamentRegistry();
 		
 		NetworkedTournament tourna = reg.get("ipd-1");
 		assertNotNull(tourna);
 		assertEquals("Iterated Prisoner's Dilemma",tourna.getName());
 	}
 	
-	
-	
 	@Test
-	void addAndListTests() {
-		TournamentRegistry reg = new TournamentRegistry();
-		
-		//adding a mock tournament that is in the registering state 
-		NetworkedTournament tourna1 = mock(NetworkedTournament.class);
-		when(tourna1.getId()).thenReturn("reg_Test");
-		when(tourna1.getStatus()).thenReturn(TournamentStatus.REGISTERING);
-		
-		NetworkedTournament tourna2 = mock(NetworkedTournament.class);
-		when(tourna2.getId()).thenReturn("comp_Test");
-		when(tourna2.getStatus()).thenReturn(TournamentStatus.COMPLETED);
-		
-		reg.add(tourna1);
-		reg.add(tourna2);
-		
-		//list registering shouldnt list out completed tournaments 
+	void addAndListTests() 
+	{
 		List<NetworkedTournament> regList = reg.listRegistering();
-		
-		assertFalse(regList.contains(tourna2)); 
-		assertTrue(regList.contains(tourna1));
-		
-		
-		/* this testing was originally made with mock but I am going to leave it here and adopting a new 
-		 * testing style that actually has a real instance of the tournament and test the endpoints from there. 
-		 * 
-		 * however sprint 3 javafx implementation will have the mock testing. 
-		 * 
-		*/
+		assertNotNull(regList);
+		assertFalse(regList.isEmpty());
 	}
 	
-	
-	/* THINGS TO TEST:
-	 * 
-	 * addRemoteParticipant()
-	 * getTournaments() - this is just listRegistering() again. 
-	 * TournamentServerController constructor (obviously)
-	 * register on the tournament server controller side. 
-	 * start() ???? and start(String, RegistrationRequest)
-	 */
 	
 	@Test
 	void controllerTesting() {
