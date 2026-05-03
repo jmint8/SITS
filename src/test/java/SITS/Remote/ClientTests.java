@@ -57,6 +57,7 @@ class ClientTests {
 	void nametest(){
 		String url = "http://localhost:"+port +"/name";
 		ResponseEntity<String> response = restTemp.getForEntity(url, String.class);
+		
 		assertEquals("Tit For Tat", response.getBody());
 	}
 
@@ -66,6 +67,7 @@ class ClientTests {
 		String url = "http://localhost:" + port + "/action";
 		GameHistoryDTO dto = new GameHistoryDTO( "TitForTat", "Opponent",new ArrayList<>()); 
 		ResponseEntity<String> response = restTemp.postForEntity(url, dto, String.class);
+		assertTrue(response.getStatusCode().is2xxSuccessful());
 		assertEquals("COOPERATE", response.getBody());
 	}
 
