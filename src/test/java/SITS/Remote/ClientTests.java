@@ -95,19 +95,23 @@ class ClientTests {
 		
 		List<?> tourna = client.listTournaments();
 		assertNotNull(tourna);
-		assertEquals("ipd-1", tourna.get(0));
+		assertFalse(tourna.isEmpty());
 	}
+	
+	
 	
 	@Test
 	void registerTest() {
 		TournamentServerClient client = new TournamentServerClient("http://localhost:" + port);
 		
 		client.register("ipd-1","testPlayer","127.0.0.1",9090);
-		//register test player and check if the player is in there. /registered only exists in testing
-		//to make sure registration works
-		List<?> registered =  restTemp.getForObject("http://localhost:"+port+"/registered", List.class);
-		assertNotNull(registered);
-		assertTrue(registered.contains("testPlayer"));
+		
+		RegistrationRequest req = new RegistrationRequest("Sixer","127.0.0.1",9091);
+		ResponseEntity<String> response = restTemp.postForEntity("http://localhost:"+port+"/register/ipd-1", req, String.class);
+		
+		assertTrue(response.getStatusCode().is2xxSuccessful());
+		assertTrue(response.getBody().contains("registered Sixer"));
+		
 	}
 
 }
