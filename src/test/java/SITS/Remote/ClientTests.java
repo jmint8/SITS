@@ -27,11 +27,14 @@ import SITS.Remote.Client.ClientApp;
 import SITS.Remote.Client.TournamentServerClient;
 import SITS.Remote.Network.dto.GameHistoryDTO;
 import SITS.Remote.Network.dto.RegistrationRequest;
+import SITS.Remote.Server.TournamentServerApp;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-@SpringBootTest(classes = {ClientApp.class, ClientTests.TestConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {ClientApp.class,TournamentServerApp.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+		properties = {"server.port = 5000","tournament.server.url=http://localhost:5000"})
+
 class ClientTests {
 
 	/*
@@ -44,51 +47,10 @@ class ClientTests {
 	*/
 	
 	@LocalServerPort
-	private int port;
+	private int port = 5000;
 	
 	private RestTemplate restTemp = new RestTemplate();
 	
-	@TestConfiguration
-	static class TestConfig{
-		@Bean
-		@Primary
-		public TournamentServerClient testStartupClient() {
-			return new TournamentServerClient("http://localhost:8080") 
-			{
-				@Override
-				public void register(String tournamentId, String name, String ip, int port) 
-				{ //nothing	
-				}
-			};
-		}
-		// a dummy test controller hosted on clientApp for
-		//TounramentServerClient testing
-		@RestController
-		static class testServerController
-		{
-			//this is for testing the registration. verrifying that the regirster function works 
-			public List<String> regiPlayers = new ArrayList<>();
-			
-			@GetMapping("/tournaments")
-			public List<String> testGetTournaments(){
-				List<String> list = new ArrayList<>();
-				list.add("ipd-1");
-				return list;
-			}
-			@PostMapping("/register/{id}")
-			public ResponseEntity<String> dummyRegister(@PathVariable String id, @RequestBody RegistrationRequest req) {
-				regiPlayers.add(req.name);// this adds the name to the array
-				return ResponseEntity.ok("registered " + req.name);
-			}
-			//this is literally only for verifying the register method. 
-			@GetMapping("/registered")
-			public List<String> getRegistered(){
-				 
-				return regiPlayers;
-			}
-			
-		}
-	}
 	
 	//name endpoint
 	@Test 
