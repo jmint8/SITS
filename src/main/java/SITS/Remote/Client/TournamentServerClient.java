@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.web.client.RestTemplate;
 
 import SITS.Remote.Network.dto.RegistrationRequest;
-import SITS.Remote.Server.NetworkedTournament;
 
 public class TournamentServerClient {
 	

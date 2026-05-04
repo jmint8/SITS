@@ -38,7 +38,7 @@ class RoundRobinTest {
 	}
 
 	@Test
-	void RoundRobinTest() {
+	void testRoundRobin() {
 		TournamentResult result = tourna.run(players, game);
 		
 		assertEquals(5, result.getScores("Always Cooperate"));

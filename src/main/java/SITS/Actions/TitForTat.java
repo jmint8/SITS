@@ -3,8 +3,6 @@ package SITS.Actions;
 import SITS.Game.GameHistory;
 import SITS.Game.RoundResult;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TitForTat implements Participant {
 

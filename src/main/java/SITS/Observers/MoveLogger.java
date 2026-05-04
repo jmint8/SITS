@@ -10,7 +10,6 @@ import SITS.Game.TournamentResult;
 
 public class MoveLogger implements GameObserver {
 	private String filePath;
-	private FileWriter writer;
 	
 	public MoveLogger(String filePath) {
 		this.filePath = filePath;

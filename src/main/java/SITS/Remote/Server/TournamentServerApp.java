@@ -2,10 +2,6 @@ package SITS.Remote.Server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import SITS.Actions.PrisonerAction;
-import SITS.Game.ItteratedPrisonersDilemma;
-import SITS.Game.RoundRobin;
 
 
 @SpringBootApplication(scanBasePackages = {

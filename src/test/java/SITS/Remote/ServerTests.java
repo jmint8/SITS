@@ -1,12 +1,8 @@
 package SITS.Remote;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -69,7 +65,7 @@ class ServerTests {
 		reg.get("ipd-1").start();
 		String url = "http://localhost:"+port+"/register/ipd-1"; 
 		RegistrationRequest req = new RegistrationRequest("TooLate", "127.0.0.1", 9021);
-		//TODO
+		
 		assertThrows(org.springframework.web.client.HttpClientErrorException.BadRequest.class, () -> {
 			restTemp.postForEntity(url, req, String.class);});
 		
