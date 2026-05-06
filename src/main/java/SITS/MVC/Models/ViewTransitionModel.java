@@ -2,6 +2,9 @@ package SITS.MVC.Models;
 
 import java.io.IOException;
 
+import com.sun.tools.javac.Main;
+
+import SITS.MVC.Views.TournamentDashController;
 import SITS.MVC.Views.connectionController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
@@ -43,8 +46,20 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 	@Override
 	public void showTournamentDash() 
 	{
-		//placeholder
-		System.out.println(" test: to Tournament Dashboard");
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ViewTransitionModel.class.getResource("/SITS/MVC/Views/TournamentDashboard.fxml"));
+		
+		try
+		{
+			Pane view = loader.load();
+			mainview.setCenter(view);
+			TournamentDashController cont = loader.getController(); 
+			cont.setModel(this, model);
+			
+		}catch (IOException e) {e.printStackTrace();}
+		
+		
+		
 	}
 
 }

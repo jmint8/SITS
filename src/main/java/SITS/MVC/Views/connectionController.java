@@ -32,8 +32,12 @@ public class connectionController
 		model.setConnectionParts(serverIP, portNum);
 		
 		//clear the text fields
-		serverIPtext.textProperty().set("");
-		portText.textProperty().set("");
+		//serverIPtext.textProperty().set("");
+		//portText.textProperty().set("");
+		//I am changing the syntax to this
+		serverIPtext.clear();
+		portText.clear();
+		
 		
 		transModel.showTournamentDash();	
 	}
