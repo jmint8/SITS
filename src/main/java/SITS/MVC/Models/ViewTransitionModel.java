@@ -31,7 +31,7 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 		      Pane view = loader.load();
 		      mainview.setCenter(view);
 		      connectionController cont = loader.getController();
-		      cont.setModel(model);
+		      cont.setModel(this,model);
 		      
 		 } catch (IOException e) 
 		 {

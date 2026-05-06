@@ -1,5 +1,6 @@
 package SITS.MVC.main;
 
+import SITS.MVC.Models.ViewTransitionModel;
 import SITS.MVC.Models.viewerModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,16 +16,14 @@ public class Main extends Application
 	{
 		//probably need a model for the client viewer here like how Dr. B does it in his videos and Repo
 		viewerModel model = new viewerModel();
+		BorderPane root = new BorderPane();
 		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("SITS/MVC/Views/connection.fxml"));
-		BorderPane view = loader.load(); // this might need to change to tiled pane or something else. 
+		ViewTransitionModel transModel = new ViewTransitionModel(root,model);
+		transModel.showConnection();
 		
-		//TODO for the controller
-		
-		
-		Scene s = new Scene(view);
+		Scene s = new Scene(root, 600,400);
 		stage.setScene(s);
+		stage.setTitle("TournamentViewer");
 		stage.show();
 	}
 	
@@ -32,6 +31,4 @@ public class Main extends Application
 	{
 		launch(args);
 	}
-
-	
 }

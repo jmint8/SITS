@@ -1,6 +1,6 @@
 package SITS.MVC.Views;
 
-import SITS.MVC.Models.ViewTransitionModel;
+import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 
 public class connectionController 
 {
-	ViewTransitionModel transModel; 
+	ViewTransitionModelInterface transModel; 
 	viewerModel model;
 	
 	@FXML
@@ -17,8 +17,9 @@ public class connectionController
 	@FXML
 	private TextField serverIPtext;
 	
-	public void setModel(viewerModel newModel)
+	public void setModel(ViewTransitionModelInterface tModel,viewerModel newModel)
 	{
+		this.transModel = tModel;
 		this.model = newModel;
 	}
 	
