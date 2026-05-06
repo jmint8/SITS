@@ -4,6 +4,7 @@ import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 
 public class TournamentDashController 
 {
@@ -11,6 +12,8 @@ public class TournamentDashController
 	viewerModel model;
 	//more to add here
 	
+	@FXML
+	private ListView<String> tournamentListView;
 	
 	@FXML
 	private Button watchButton;
@@ -22,13 +25,20 @@ public class TournamentDashController
 		this.model = newModel;
 		
 		//maybe something else for the getTournaments() needed for showing the list
+		tournamentListView.setItems(null); // needs a fucttion to retrieve the list of tournaments
 	}
 	
 	
 	@FXML
 	void onWatchClick()
 	{
-		//sends you to the next page where you watch the tournament unfold. 
+		String subject = tournamentListView.getSelectionModel().getSelectedItem();
+		
+		if (subject != null)
+		{
+			System.out.println("switch to view tournament"+subject);
+		}
+		else {System.out.println("select a tournament");}
 	}
 	
 	
@@ -36,6 +46,7 @@ public class TournamentDashController
 	void onRefreshClick() 
 	{
 		//for the refresh button, reprint the listview by wiping it and then printing it out again
+		System.out.println("Refreshing");
 	}
 	
 	
