@@ -1,5 +1,6 @@
 package SITS.MVC.Views;
 
+import SITS.MVC.Models.ViewTransitionModel;
 import SITS.MVC.Models.viewerModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,7 +8,7 @@ import javafx.scene.control.TextField;
 
 public class connectionController 
 {
-	//peobably need the view transition model here later 
+	ViewTransitionModel transModel; 
 	viewerModel model;
 	
 	@FXML
@@ -27,12 +28,12 @@ public class connectionController
 		String serverIP = serverIPtext.textProperty().get();
 		String portNum = portText.textProperty().get();
 		
-	
+		model.setConnectionParts(serverIP, portNum);
 		
+		//clear the text fields
+		serverIPtext.textProperty().set("");
+		portText.textProperty().set("");
 		
-		
-		
+		transModel.showTournamentDash();	
 	}
-	
-	
 }

@@ -1,5 +1,6 @@
 package SITS.MVC.main;
 
+import SITS.MVC.Models.viewerModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,9 +11,10 @@ public class Main extends Application
 {
 
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) throws Exception 
+	{
 		//probably need a model for the client viewer here like how Dr. B does it in his videos and Repo
-		
+		viewerModel model = new viewerModel();
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("SITS/MVC/Views/connection.fxml"));
@@ -26,6 +28,10 @@ public class Main extends Application
 		stage.show();
 	}
 	
-	
+	public static void main(String [] args) 
+	{
+		launch(args);
+	}
 
+	
 }
