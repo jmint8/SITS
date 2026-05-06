@@ -2,8 +2,6 @@ package SITS.MVC.Models;
 
 import java.io.IOException;
 
-import com.sun.tools.javac.Main;
-
 import SITS.MVC.Views.TournamentDashController;
 import SITS.MVC.Views.connectionController;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +56,7 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 			
 		}catch (IOException e) {e.printStackTrace();}
 		
-		
+		System.out.println("connecting to server");
 		
 	}
 
