@@ -1,5 +1,6 @@
 package SITS.MVC.Models;
 
+import SITS.Remote.Client.TournamentServerClient;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -11,12 +12,9 @@ public class viewerModel
 	StringProperty port = new SimpleStringProperty();
 	
 	ObservableList<String> tournamentList = FXCollections.observableArrayList();
+	TournamentServerClient client;
 	
-	public viewerModel() 
-	{
-		tournamentList.add("testing tournament listview");
-		tournamentList.add("testing tournament listview 2");
-	}
+	public viewerModel() {}
 	
 	public StringProperty getServerIp() {return serverIp;};
 	
@@ -26,11 +24,29 @@ public class viewerModel
 	{
 		serverIp.set(ip);
 		port.set(p);
+		client = new TournamentServerClient("http://"+ip+":"+p); 
 	}
 
 	public ObservableList<String> getTournamentList() 
 	{
 		return tournamentList; 
 	}
+	
+	//new method 
+	public void retreivetournaments()
+	{
+		try
+		{
+			tournamentList.clear();
+			
+			  
+			
+			
+		}catch (Exception e) {System.out.println("Failed to fetch tournaments:");}
+	}
+		
+		
+		
+	
 
 }

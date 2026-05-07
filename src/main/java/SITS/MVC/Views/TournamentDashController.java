@@ -36,7 +36,9 @@ public class TournamentDashController
 		
 		if (subject != null)
 		{
+			transModel.showViewTournament();
 			System.out.println("switch to view tournament"+subject);
+			
 		}
 		else {System.out.println("select a tournament");}
 	}

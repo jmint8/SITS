@@ -1,11 +1,13 @@
 package SITS.MVC;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
@@ -18,20 +20,21 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-@ExtendWith(ApplicationExtension.class)
-public class ConnectionTests implements ViewTransitionModelInterface {
 
-	int dashCalled = 0;
+@ExtendWith(ApplicationExtension.class)
+class TournamentDashTest implements ViewTransitionModelInterface
+{
+	int viewCalled = 0;
 	viewerModel model;
 	
 	@Start
 	private void start(Stage stage)
 	{
-		dashCalled = 0;
+		int viewCalled = 0;
 		model = new viewerModel();
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/SITS/MVC/Views/connection.fxml"));
+		loader.setLocation(Main.class.getResource("/SITS/MVC/Views/TournamentDashboard.fxml"));
 		Pane view;
 		try {
 			
@@ -45,51 +48,32 @@ public class ConnectionTests implements ViewTransitionModelInterface {
 		} catch (IOException e) {e.printStackTrace();}
 		
 	}
-	
+
 	@Override
 	public void showConnection() {
-		//nah it shows up
+		// TODO Auto-generated method stub
+		
 	}
-
-
 
 	@Override
 	public void showTournamentDash() {
-		dashCalled++; // this shows that the switch was attempted 
+		// TODO Auto-generated method stub
 		
-	}
-	
-	@Test
-	public void ConnectionInputTest(FxRobot r) 
-	{
-		r.clickOn("#serverIPtext");
-		r.write("111.111.1.11");
-		r.clickOn("#portText");
-		r.write("8080");
-		
-		r.clickOn("#connectButton");
-		
-		Assertions.assertThat(dashCalled).isEqualTo(1);
-		Assertions.assertThat(model.getPort().get()).isEqualTo("8080");
-		Assertions.assertThat(model.getServerIp().get()).isEqualTo("111.111.1.11");
-		
-		r.clickOn("#serverIPtext").write("111.111.1.11");
-		r.clickOn("#portText").write("8081");
-		r.clickOn("#connectButton");
-		Assertions.assertThat(dashCalled).isEqualTo(2);
 	}
 
 	@Override
 	public void showViewTournament() {
-		//nahh this is for the next page
+		viewCalled++;
 		
 	}
+	
+	@Test
+	public void watchTest(FxRobot r)
+	{
+		r.clickOn("");
+		
+	}
+	
+	
 
-
-	
-	
-	
-	
-	
-	
 }

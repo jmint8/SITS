@@ -60,4 +60,12 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 		
 	}
 
+
+	//this is for the 3rd screen
+	@Override
+	public void showViewTournament() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
