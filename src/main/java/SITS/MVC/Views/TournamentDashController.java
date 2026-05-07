@@ -49,6 +49,7 @@ public class TournamentDashController
 	{
 		//for the refresh button, reprint the listview by wiping it and then printing it out again
 		System.out.println("Refreshing");
+		model.retreiveTournaments();
 	}
 	
 	

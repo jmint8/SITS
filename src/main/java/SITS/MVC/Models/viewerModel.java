@@ -33,13 +33,13 @@ public class viewerModel
 	}
 	
 	//new method 
-	public void retreivetournaments()
+	public void retreiveTournaments()
 	{
 		try
 		{
 			tournamentList.clear();
 			
-			  
+			  //add more
 			
 			
 		}catch (Exception e) {System.out.println("Failed to fetch tournaments:");}
