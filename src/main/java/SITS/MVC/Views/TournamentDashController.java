@@ -25,7 +25,7 @@ public class TournamentDashController
 		this.model = newModel;
 		
 		//maybe something else for the getTournaments() needed for showing the list
-		tournamentListView.setItems(null); // needs a fucttion to retrieve the list of tournaments
+		tournamentListView.setItems(model.getTournamentList()); // needs a fuction to retrieve the list of tournaments
 	}
 	
 	
