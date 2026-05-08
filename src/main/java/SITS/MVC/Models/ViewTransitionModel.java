@@ -64,8 +64,17 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 	//this is for the 3rd screen
 	@Override
 	public void showViewTournament() {
-		// TODO Auto-generated method stub
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ViewTransitionModel.class.getResource("/SITS/MVC/Views/viewTournament.fxml"));
+		try
+		{
+			Pane view = loader.load();
+			mainview.setCenter(view);
+			TournamentDashController cont = loader.getController(); 
+			cont.setModel(this, model);
+		}catch (IOException e) {e.printStackTrace();}
 		
+		System.out.println("connecting to selected tournament");
 	}
 
 }
