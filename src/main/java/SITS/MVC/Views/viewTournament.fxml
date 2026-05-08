@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SITS.MVC.Views.viewTournamentController">
    <left>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d2d9df" height="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" BorderPane.alignment="CENTER" />
    </left>
@@ -18,7 +17,7 @@
    <top>
       <AnchorPane prefHeight="62.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" text="Back to Tournament Dashboard" />
+            <Button fx:id="backButton" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBackClick" text="Back to Tournament Dashboard" />
          </children>
       </AnchorPane>
    </top>
@@ -27,7 +26,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView layoutX="4.0" layoutY="4.0" prefHeight="328.0" prefWidth="271.0" />
+                  <ListView fx:id="moveListView" layoutX="4.0" layoutY="4.0" prefHeight="328.0" prefWidth="271.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
