@@ -39,6 +39,7 @@ public class connectionController
 		portText.clear();
 		
 		
-		transModel.showTournamentDash();	
+		transModel.showTournamentDash();
+		model.retreiveTournaments();
 	}
 }

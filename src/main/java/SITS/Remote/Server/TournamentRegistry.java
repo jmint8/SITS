@@ -51,6 +51,11 @@ public class TournamentRegistry
 		
 	}
 	
+	public List<NetworkedTournament> listAll()
+	{
+		return new ArrayList<>(tournaments.values());
+	}
+	
 	
 	
 }

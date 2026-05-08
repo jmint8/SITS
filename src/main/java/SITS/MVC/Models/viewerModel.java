@@ -43,32 +43,33 @@ public class viewerModel
 			tournamentList.clear();
 			
 			List<?> rawdataList = client.listTournaments();
-			
-			// RestTemplate parses json objects into Maps when using the List.class
-			for(Object o : rawdataList)
-			{
-				if(o instanceof Map)
+			if (rawdataList != null) {
+				for(Object o : rawdataList)
 				{
-					Map<?, ?> map = (Map<?,?>) o;
-					
-					String id = (String) map.get("id");
-					String name = (String) map.get("name");
-					
-					String status = (String) map.get("status");
-					
-					if ("REGISTERING".equals(status)||"RUNNING".equals(status)) 
+					if(o instanceof Map)
 					{
+						// RestTemplate parses json objects into Maps when using the List.class
+						Map<?, ?> map = (Map<?,?>) o;
+					
+						String id = (String) map.get("id");
+						String name = (String) map.get("name");
+					
+						String status = (String) map.get("status");
+					
+						if ("REGISTERING".equals(status)||"RUNNING".equals(status)) 
+						{
+							
 						tournamentList.add(name+"("+id+")");
 						
+						}
 					}
 				}
 			}
+			
 		}catch (Exception e) {System.out.println("Failed to fetch tournaments:");
-			tournamentList.add("Error");}
+			tournamentList.add("Error");
+			e.printStackTrace();}
 	}
 		
-		
-		
-	
 
 }

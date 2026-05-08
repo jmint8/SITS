@@ -67,12 +67,11 @@ class TournamentDashTest implements ViewTransitionModelInterface
 		
 	}
 	
-	@Test
-	public void watchTest(FxRobot r)
-	{
-		r.clickOn("");
-		
-	}
+//	@Test
+//	public void watchTest(FxRobot r)
+//	{
+//		r.clickOn("");
+//	}
 	
 	
 

@@ -27,7 +27,7 @@ public class TournamentServerController
 	@GetMapping("/tournaments") 
 	public List<NetworkedTournament> getTournaments()
 	{ 
-		return registry.listRegistering(); 
+		return registry.listAll(); 
 		
 	}
 	
@@ -57,5 +57,9 @@ public class TournamentServerController
 		NetworkedTournament tournament = registry.get(id);
 		return tournament.start();
 	}
+	
+
+	
+	
 	
 }
