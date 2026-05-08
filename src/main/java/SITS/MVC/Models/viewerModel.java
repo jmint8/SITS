@@ -1,5 +1,8 @@
 package SITS.MVC.Models;
 
+import java.util.List;
+import java.util.Map;
+
 import SITS.Remote.Client.TournamentServerClient;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -39,10 +42,29 @@ public class viewerModel
 		{
 			tournamentList.clear();
 			
-			  //add more
+			List<?> rawdataList = client.listTournaments();
 			
-			
-		}catch (Exception e) {System.out.println("Failed to fetch tournaments:");}
+			// RestTemplate parses json objects into Maps when using the List.class
+			for(Object o : rawdataList)
+			{
+				if(o instanceof Map)
+				{
+					Map<?, ?> map = (Map<?,?>) o;
+					
+					String id = (String) map.get("id");
+					String name = (String) map.get("name");
+					
+					String status = (String) map.get("status");
+					
+					if ("REGISTERING".equals(status)||"RUNNING".equals(status)) 
+					{
+						tournamentList.add(name+"("+id+")");
+						
+					}
+				}
+			}
+		}catch (Exception e) {System.out.println("Failed to fetch tournaments:");
+			tournamentList.add("Error");}
 	}
 		
 		
