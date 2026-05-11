@@ -62,6 +62,21 @@ public class TournamentServerController
 		return ResponseEntity.ok("tournament started");
 	}
 	
+	@PostMapping("/watch/{id}")
+	public ResponseEntity<String> registerViewer(@PathVariable String id, @RequestBody RegistrationRequest body)
+	{
+		NetworkedTournament tourna = registry.get(id);
+		
+		if(tourna == null)
+		{
+			return ResponseEntity.badRequest().body("cant get tournament status");
+		}
+		
+		tourna.addViewer(body.ip, body.port);
+		return ResponseEntity.ok("registered viewer:"+ id);
+	}
+	
+	
 
 	
 	
