@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import SITS.MVC.Views.TournamentDashController;
 import SITS.MVC.Views.connectionController;
+import SITS.MVC.Views.viewTournamentController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -70,7 +71,7 @@ public class ViewTransitionModel implements ViewTransitionModelInterface
 		{
 			Pane view = loader.load();
 			mainview.setCenter(view);
-			TournamentDashController cont = loader.getController(); 
+			viewTournamentController cont = loader.getController(); 
 			cont.setModel(this, model);
 		}catch (IOException e) {e.printStackTrace();}
 		

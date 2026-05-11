@@ -47,6 +47,13 @@ public abstract class Game {
     		RoundResult roundResult = doRound(p1,p2, history);
             history.getRounds().add(roundResult);
             notifyMoveMade(new MoveEvent(history, roundResult));
+            
+            //thread.sleep here.
+           try {
+        	   Thread.sleep(2000);
+           }catch(InterruptedException e) {
+        	   Thread.currentThread().interrupt();
+           }  
     	}
     	GameResult finalR = computeFinalResult(history);
         notifyGameOver(finalR);

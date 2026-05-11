@@ -52,10 +52,14 @@ public class TournamentServerController
 	}
 	
 	@GetMapping("/start/{id}")
-	public TournamentResult start(@PathVariable String id) 
+	public ResponseEntity<String> start(@PathVariable String id) 
 	{
 		NetworkedTournament tournament = registry.get(id);
-		return tournament.start();
+		new Thread(() ->{
+			tournament.start();
+		}).start();
+		
+		return ResponseEntity.ok("tournament started");
 	}
 	
 
