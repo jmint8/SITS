@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import SITS.Remote.Client.TournamentServerClient;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -17,7 +18,10 @@ public class viewerModel
 	ObservableList<String> tournamentList = FXCollections.observableArrayList();
 	TournamentServerClient client;
 	
-	public viewerModel() {}
+	private static viewerModel instance;
+	ObservableList<String> moves = FXCollections.observableArrayList();
+	
+	public viewerModel() {instance = this;}
 	
 	public StringProperty getServerIp() {return serverIp;};
 	
@@ -33,6 +37,17 @@ public class viewerModel
 	public ObservableList<String> getTournamentList() 
 	{
 		return tournamentList; 
+	}
+	
+	public TournamentServerClient getClient() {return client;}
+	
+	public ObservableList<String> getMoveList() {return moves;}
+	
+	public static viewerModel getInstance() {return instance;}
+	
+	public void addMove(String movetxt)
+	{
+		Platform.runLater(() -> {moves.add(movetxt);});
 	}
 	
 	//new method 

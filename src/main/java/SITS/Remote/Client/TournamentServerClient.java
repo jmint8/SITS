@@ -83,5 +83,14 @@ public class TournamentServerClient {
 				server_url +"/register/"+ tournamentId,request, String.class); 
 	
 	}
+	
+	public void registerViewer(String tournamentId, String ip, int port)
+	{
+		RegistrationRequest request = new RegistrationRequest("viewer",ip, port);
+		restTemplate.postForObject(server_url+"/watch/"+tournamentId,request, String.class);
+	}
+	
+	
+	
 
 }

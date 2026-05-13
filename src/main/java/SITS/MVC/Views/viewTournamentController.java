@@ -22,7 +22,7 @@ public class viewTournamentController
 		this.transModel = tModel;
 		this.model = newModel;
 		
-		//moveListView.setItems(model.getTournamentList().getMoveList());
+		moveListView.setItems(model.getMoveList());
 	}
 	
 	@FXML
