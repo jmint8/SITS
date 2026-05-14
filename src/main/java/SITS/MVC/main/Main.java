@@ -44,6 +44,7 @@ public class Main extends Application
 		stage.show();
 	}
 	
+	//maybe a leave or stop override here? 
 	
 	public static void main(String [] args) 
 	{

@@ -22,11 +22,23 @@ public class viewerModel
 	private static viewerModel instance;
 	ObservableList<String> moves = FXCollections.observableArrayList();
 	
+	private String viewerIp;
+	private int viewerPort;
+	
 	public viewerModel() {instance = this;}
 	
 	public StringProperty getServerIp() {return serverIp;};
-	
 	public StringProperty getPort() {return port;}
+	
+	public void setViewerIp(String ip){this.viewerIp = ip;} 
+	public String getViewerIp(){return viewerIp;} 
+	
+	public void setViewerPort(int port){this.viewerPort = port;} 
+	public int getViewerPort(){ return viewerPort;} 
+	
+	
+	
+	
 	
 	public void setConnectionParts(String ip, String p)
 	{
@@ -35,15 +47,9 @@ public class viewerModel
 		client = new TournamentServerClient("http://"+ip+":"+p); 
 	}
 
-	public ObservableList<String> getTournamentList() 
-	{
-		return tournamentList; 
-	}
-	
+	public ObservableList<String> getTournamentList() {return tournamentList; }
 	public TournamentServerClient getClient() {return client;}
-	
 	public ObservableList<String> getMoveList() {return moves;}
-	
 	public static viewerModel getInstance() {return instance;}
 	
 	public void addMove(String movetxt)
@@ -87,42 +93,19 @@ public class viewerModel
 			e.printStackTrace();}
 	}
 	
-	private boolean isWatching;
+
 	
 	public void watchTournament(String id)
 	{
-		isWatching = true;
-		moves.clear();
-		new Thread(()->{
-			int lastMoveIndex =0;
-			while(isWatching) 
-			{
-				try
-				{
-					RoundResultDTO[] current = client.getRestTemplate()
-							.getForObject(client.getServer_url()+"/watch/"+id, RoundResultDTO[].class);
-					if(current !=null && current.length > lastMoveIndex) 
-					{
-						for(int i = lastMoveIndex; i<current.length;i++)
-						{
-							RoundResultDTO m = current[i];
-							String moveString = "P1:"+m.actionP1+" P2:"+m.actionP2+
-									" | P1 score: "+m.payoffP1+" P2 score: "+m.payoffP2;
-							javafx.application.Platform.runLater(() -> moves.add(moveString));
-						}
-						lastMoveIndex = current.length;
-						
-					}
-					Thread.sleep(500);
-				}catch (Exception e) {}
 		
-			}
-		}).start();
+		moves.clear();
+		client.registerViewer(id, viewerIp, viewerPort);
+		
 	}
 	
-	public void leaveTournament()
+	public void leaveTournament(String id)
 	{
-		isWatching = false;
+		//client.deRegister(id, viewerIp, viewerPort);
 	}
 	
 	
