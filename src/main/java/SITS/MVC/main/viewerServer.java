@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import SITS.Game.RoundResult;
 import SITS.MVC.Models.viewerModel;
+import SITS.Remote.Network.dto.RoundResultDTO;
 
 @SpringBootApplication
 @RestController
@@ -21,8 +21,14 @@ public class viewerServer
 	}
 	
 	@PutMapping("/updateMoveList")
-	public String receiveMove(@RequestBody RoundResult move)
+	public String receiveMove(@RequestBody RoundResultDTO m)
 	{
+		if(model!=null)
+		{
+			String moveString = "P1:"+m.actionP1+" P2:"+m.actionP2+
+					" | P1 score: "+m.payoffP1+" P2 score: "+m.payoffP2;
+			model.addMove(moveString);
+		}
 		return "ok";
 	}
 	
