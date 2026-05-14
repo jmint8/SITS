@@ -30,6 +30,7 @@ public class viewTournamentController
 	{
 		//model.deRegister();
 		transModel.showTournamentDash();
+		model.leaveTournament();
 		System.out.println("going back to Dashboard");
 		
 	}

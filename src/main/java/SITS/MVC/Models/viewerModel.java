@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import SITS.Remote.Client.TournamentServerClient;
+import SITS.Remote.Network.dto.RoundResultDTO;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -61,7 +62,6 @@ public class viewerModel
 			if (rawdataList != null) {
 				for(Object o : rawdataList)
 				{
-					
 					if(o instanceof Map)
 					{
 						// RestTemplate parses json objects into Maps when using the List.class
@@ -86,6 +86,52 @@ public class viewerModel
 			tournamentList.add("Error");
 			e.printStackTrace();}
 	}
+	
+	private boolean isWatching;
+	
+	public void watchTournament(String id)
+	{
+		isWatching = true;
+		moves.clear();
+		new Thread(()->{
+			int lastMoveIndex =0;
+			while(isWatching) 
+			{
+				try
+				{
+					RoundResultDTO[] current = client.getRestTemplate()
+							.getForObject(client.getServer_url()+"/watch/"+id, RoundResultDTO[].class);
+					if(current !=null && current.length > lastMoveIndex) 
+					{
+						for(int i = lastMoveIndex; i<current.length;i++)
+						{
+							RoundResultDTO m = current[i];
+							String moveString = "P1:"+m.actionP1+" P2:"+m.actionP2+
+									" | P1 score: "+m.payoffP1+" P2 score: "+m.payoffP2;
+							javafx.application.Platform.runLater(() -> moves.add(moveString));
+						}
+						lastMoveIndex = current.length;
+						
+					}
+					Thread.sleep(500);
+				}catch (Exception e) {}
 		
-
+			}
+		}).start();
+	}
+	
+	public void leaveTournament()
+	{
+		isWatching = false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

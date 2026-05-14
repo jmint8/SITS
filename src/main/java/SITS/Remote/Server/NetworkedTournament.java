@@ -70,9 +70,13 @@ public class NetworkedTournament {
 		this.viewers.add("http://"+ip+":"+port);
 	}
 	
+	private List<RoundResultDTO> moveHistory = new ArrayList<>();
+	
+	public List<RoundResultDTO> getMoveHistory(){return moveHistory;}
+	
 	public TournamentResult start() 
 	{
-		
+		this.getMoveHistory().clear();
 		this.status = TournamentStatus.RUNNING; 
 		
 		GameObserver netObserver = new GameObserver() 
@@ -85,13 +89,11 @@ public class NetworkedTournament {
 						event.getRound().getScoreP1(),
 						event.getRound().getScoreP2());
 				
-				for(String viewerUrl : viewers)
-				{
-					try
-					{
-						restTemp.postForObject(viewerUrl, dto, Void.class);
-					}catch(Exception e) {}
-				}
+				moveHistory.add(dto);
+				
+				try {
+					Thread.sleep(2000);
+				}catch(InterruptedException e) {e.printStackTrace();}
 			}
 
 			@Override

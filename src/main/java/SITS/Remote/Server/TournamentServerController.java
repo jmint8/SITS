@@ -1,5 +1,6 @@
 package SITS.Remote.Server;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import SITS.Game.TournamentResult;
 import SITS.Remote.Network.dto.RegistrationRequest;
+import SITS.Remote.Network.dto.RoundResultDTO;
 
 @RestController
 public class TournamentServerController 
@@ -63,17 +65,16 @@ public class TournamentServerController
 	}
 	
 	@PostMapping("/watch/{id}")
-	public ResponseEntity<String> registerViewer(@PathVariable String id, @RequestBody RegistrationRequest body)
+	public List<RoundResultDTO> getHistory(@PathVariable String id)
 	{
 		NetworkedTournament tourna = registry.get(id);
 		
 		if(tourna == null)
 		{
-			return ResponseEntity.badRequest().body("cant get tournament status");
+			return tourna.getMoveHistory();
 		}
-		
-		tourna.addViewer(body.ip, body.port);
-		return ResponseEntity.ok("registered viewer:"+ id);
+		return new ArrayList<>();
+	
 	}
 	
 	
