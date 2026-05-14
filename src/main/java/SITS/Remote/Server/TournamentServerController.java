@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -63,20 +64,30 @@ public class TournamentServerController
 		return ResponseEntity.ok("tournament started");
 	}
 	
-	@GetMapping("/watch/{id}")
-	public List<RoundResultDTO> getHistory(@PathVariable String id)
+	@PutMapping("/watch/{id}")
+	public ResponseEntity<String> registerViewer(@PathVariable String id, @RequestBody RegistrationRequest body)
 	{
 		NetworkedTournament tourna = registry.get(id);
 		
-		if(tourna != null)
+		if(tourna == null)
 		{
-			return tourna.getMoveHistory();
+			return ResponseEntity.badRequest().body("tournament"+id+"not found");
 		}
-		return new ArrayList<>();
-	
+		tourna.addViewer(body.ip, body.port);
+		return ResponseEntity.ok("viewer registered");
 	}
 	
-	
+	@PutMapping("/stopWatching/{id}")
+	public ResponseEntity<String> deRegister(@PathVariable String id, @RequestBody RegistrationRequest body)
+	{
+		NetworkedTournament tourna = registry.get(id);
+		if(tourna == null)
+		{
+			return ResponseEntity.badRequest().body("tournament"+id+"not found");
+		}
+		//tourna.removeViewer(body.ip, body.port); method needs to be added
+		return ResponseEntity.ok("viewer was de registered");
+	}
 
 	
 	
