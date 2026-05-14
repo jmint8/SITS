@@ -25,9 +25,8 @@ public class TournamentDashController
 		this.model = newModel;
 		
 		//maybe something else for the getTournaments() needed for showing the list
-		tournamentListView.setItems(model.getTournamentList()); // needs a fuction to retrieve the list of tournaments
+		tournamentListView.setItems(model.getTournamentList()); // needs a function to retrieve the list of tournaments
 	}
-	
 	
 	@FXML
 	void onWatchClick()
@@ -37,11 +36,11 @@ public class TournamentDashController
 		if (subject != null)
 		{
 			// this extracts the id from the string assuming the format is name(id)
-			//String id = subject.substring(subject.indexOf("("+1), subject.indexOf(")"));
+			String id = subject.substring(subject.indexOf("("+1), subject.indexOf(")"));
 			
-			//model.getMoves().clear
+			model.getMoveList().clear();
 			
-			//model.getCLient().registerViewer(id, "localhost", 8080);
+			model.getClient().registerViewer(id, "localhost", 8081);
 			
 			transModel.showViewTournament();
 			System.out.println("switch to view tournament"+subject);
@@ -54,10 +53,8 @@ public class TournamentDashController
 	@FXML
 	void onRefreshClick() 
 	{
-		//for the refresh button, reprint the listview by wiping it and then printing it out again
+		//for the refresh button, reprint the list view by wiping it and then printing it out again
 		System.out.println("Refreshing");
 		model.retreiveTournaments();
 	}
-	
-	
 }

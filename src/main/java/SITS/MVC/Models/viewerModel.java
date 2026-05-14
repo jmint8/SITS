@@ -61,6 +61,7 @@ public class viewerModel
 			if (rawdataList != null) {
 				for(Object o : rawdataList)
 				{
+					
 					if(o instanceof Map)
 					{
 						// RestTemplate parses json objects into Maps when using the List.class

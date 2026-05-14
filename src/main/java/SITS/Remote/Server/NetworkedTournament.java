@@ -84,6 +84,14 @@ public class NetworkedTournament {
 						event.getRound().getActionP2().getLabel(),
 						event.getRound().getScoreP1(),
 						event.getRound().getScoreP2());
+				
+				for(String viewerUrl : viewers)
+				{
+					try
+					{
+						restTemp.postForObject(viewerUrl, dto, Void.class);
+					}catch(Exception e) {}
+				}
 			}
 
 			@Override
