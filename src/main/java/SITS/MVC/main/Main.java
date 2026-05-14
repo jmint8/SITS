@@ -30,10 +30,10 @@ public class Main extends Application
 		serv.setModel(model);
 		
 		String ip = java.net.InetAddress.getLocalHost().getHostAddress();
-		//int port = ??
+		int port = springCont.getEnvironment().getProperty("local.server.port", Integer.class);
 		 
 		
-		//model.setConnectionParts(ip, Integer.toString(port));
+		model.setConnectionParts(ip, Integer.toString(port));
 		
 		ViewTransitionModel transModel = new ViewTransitionModel(root,model);
 		transModel.showConnection();
