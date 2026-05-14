@@ -64,12 +64,12 @@ public class TournamentServerController
 		return ResponseEntity.ok("tournament started");
 	}
 	
-	@PostMapping("/watch/{id}")
+	@GetMapping("/watch/{id}")
 	public List<RoundResultDTO> getHistory(@PathVariable String id)
 	{
 		NetworkedTournament tourna = registry.get(id);
 		
-		if(tourna == null)
+		if(tourna != null)
 		{
 			return tourna.getMoveHistory();
 		}

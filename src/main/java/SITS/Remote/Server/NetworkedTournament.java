@@ -91,9 +91,6 @@ public class NetworkedTournament {
 				
 				moveHistory.add(dto);
 				
-				try {
-					Thread.sleep(2000);
-				}catch(InterruptedException e) {e.printStackTrace();}
 			}
 
 			@Override
