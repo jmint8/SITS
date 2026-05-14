@@ -105,7 +105,7 @@ public class viewerModel
 	
 	public void leaveTournament(String id)
 	{
-		//client.deRegister(id, viewerIp, viewerPort);
+		client.deRegister(id, viewerIp, viewerPort);
 	}
 	
 	

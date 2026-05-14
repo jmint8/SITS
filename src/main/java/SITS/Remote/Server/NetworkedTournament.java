@@ -67,16 +67,31 @@ public class NetworkedTournament {
 	}
 	
 	public void addViewer(String ip, int port) {
-		this.viewers.add("http://"+ip+":"+port);
+		String url ="http://"+ip+":"+port;
+		if (!viewers.contains(url)) {
+			viewers.add(url);
+		}
 	}
 	
-	private List<RoundResultDTO> moveHistory = new ArrayList<>();
+	public void removeViewer(String ip, int port) {
+		viewers.remove("http://"+ip+":"+port);
+	}
 	
-	public List<RoundResultDTO> getMoveHistory(){return moveHistory;}
+	private void pushMoves(RoundResultDTO dto)
+	{
+		for (String viewerURL:viewers)
+		{
+			try {
+				restTemp.put(viewerURL + "/updateMoveList", dto);
+				
+			}catch (Exception e) {System.out.println("Failed move push" + viewerURL);}
+		}	
+	}
+	
 	
 	public TournamentResult start() 
 	{
-		this.getMoveHistory().clear();
+		
 		this.status = TournamentStatus.RUNNING; 
 		
 		GameObserver netObserver = new GameObserver() 
@@ -89,8 +104,7 @@ public class NetworkedTournament {
 						event.getRound().getScoreP1(),
 						event.getRound().getScoreP2());
 				
-				moveHistory.add(dto);
-				
+				pushMoves(dto);
 			}
 
 			@Override
@@ -106,10 +120,8 @@ public class NetworkedTournament {
 		};
 		
 		game.addObserver(netObserver); //this is a specific overwritten class to send round results to the listview
-		
 		TournamentResult result = format.run(participants,game); 
 		this.status = TournamentStatus.COMPLETED; 
-		
 		return result; 
 		
 	}

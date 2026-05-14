@@ -28,7 +28,7 @@ public class viewTournamentController
 	@FXML
 	void onBackClick()
 	{
-		//model.deRegister();
+		//de register somehow
 		transModel.showTournamentDash();
 		System.out.println("going back to Dashboard");
 		
