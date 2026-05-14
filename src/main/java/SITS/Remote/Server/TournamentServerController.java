@@ -85,7 +85,7 @@ public class TournamentServerController
 		{
 			return ResponseEntity.badRequest().body("tournament"+id+"not found");
 		}
-		//tourna.removeViewer(body.ip, body.port); method needs to be added
+		tourna.removeViewer(body.ip, body.port);
 		return ResponseEntity.ok("viewer was de registered");
 	}
 
