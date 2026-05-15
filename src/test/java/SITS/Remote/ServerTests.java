@@ -12,7 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.web.client.RestTemplate;
 
-import SITS.Game.TournamentResult;
 import SITS.Remote.Network.dto.RegistrationRequest;
 import SITS.Remote.Server.NetworkedTournament;
 import SITS.Remote.Server.TournamentRegistry;
@@ -49,6 +48,7 @@ class ServerTests {
 		assertFalse(regList.isEmpty());
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetTournaments()
 	{

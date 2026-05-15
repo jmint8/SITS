@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import SITS.Remote.Client.TournamentServerClient;
-import SITS.Remote.Network.dto.RoundResultDTO;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
