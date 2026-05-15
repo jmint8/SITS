@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class TournamentDashTest implements ViewTransitionModelInterface
 {
-	int viewCalled = 0;
+	int viewCalled;
 	viewerModel model;
 	ViewTransitionModel tm;
 	
@@ -38,7 +38,7 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	@Start
 	private void start(Stage stage)
 	{
-		int viewCalled = 0;
+		viewCalled = 0;
 		model = new viewerModel();
 		
 		Collections.addAll(model.getTournamentList(), mockTournaments);
@@ -103,9 +103,12 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	@Test
 	public void watchTest(FxRobot r)
 	{
+		this.checkIfListViewHasElements(r,mockTournaments); 
+		selectItem(r,0);
 		//r.clickOn("#refreshButton"); if refresh is called it may do a failed server call
 		r.clickOn("ipd-1");
 		r.clickOn("#watchButton");
+		Assertions.assertThat(viewCalled).isEqualTo(1);
 		
 		
 	}
