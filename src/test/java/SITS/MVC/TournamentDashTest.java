@@ -106,7 +106,7 @@ class TournamentDashTest implements ViewTransitionModelInterface
 		this.checkIfListViewHasElements(r,mockTournaments); 
 		selectItem(r,0);
 		//r.clickOn("#refreshButton"); if refresh is called it may do a failed server call
-		r.clickOn("ipd-1");
+
 		r.clickOn("#watchButton");
 		Assertions.assertThat(viewCalled).isEqualTo(1);
 		
