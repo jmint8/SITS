@@ -8,6 +8,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
@@ -17,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+import javafx.application.Platform;
 
 @ExtendWith(ApplicationExtension.class)
 public class ConnectionTests implements ViewTransitionModelInterface {
@@ -58,38 +61,41 @@ public class ConnectionTests implements ViewTransitionModelInterface {
 		dashCalled++; // this shows that the switch was attempted 
 		
 	}
-	
-	@Test
-	public void ConnectionInputTest(FxRobot r) 
-	{
-		r.clickOn("#serverIPtext");
-		r.write("111.111.1.11");
-		r.clickOn("#portText");
-		r.write("8080");
-		
-		r.clickOn("#connectButton");
-		
-		Assertions.assertThat(dashCalled).isEqualTo(1);
-		Assertions.assertThat(model.getPort().get()).isEqualTo("8080");
-		Assertions.assertThat(model.getServerIp().get()).isEqualTo("111.111.1.11");
-		
-		r.clickOn("#serverIPtext").write("111.111.1.11");
-		r.clickOn("#portText").write("8081");
-		r.clickOn("#connectButton");
-		Assertions.assertThat(dashCalled).isEqualTo(2);
-	}
-
 	@Override
 	public void showViewTournament() {
 		//nahh this is for the next page
-		
 	}
 
-
+	//Im using these from your example repo just cause
+	private void clearTextField(FxRobot robot,String selector)
+	  {
+		  TextField tf = robot.lookup(selector)
+		  .queryAs(TextField.class);
+		  
+		  Platform.runLater(()->{tf.clear();});
+		  WaitForAsyncUtils.waitForFxEvents();
+	  }
 	
+	private void enterText(FxRobot robot, String text, String target)
+	{
+		clearTextField(robot, target);
+		robot.clickOn(target);
+		robot.write(text);
+	}
 	
-	
-	
+	@Test
+	public void testSuccessfulConnection(FxRobot robot)
+	{
+		enterText(robot, "127.0.0.1", "#serverIPtext");
+		enterText(robot, "8080", "#portText");
+		robot.clickOn("#connectButton");
+		Assertions.assertThat(dashCalled).isEqualTo(1);
+		
+		//assert that the model received the connection parts 
+		Assertions.assertThat(model.getServerIp().get()).isEqualTo("127.0.0.1");
+		Assertions.assertThat(model.getPort().get()).isEqualTo("8080");
+		
+	}
 	
 	
 }

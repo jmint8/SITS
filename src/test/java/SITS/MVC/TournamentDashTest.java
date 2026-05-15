@@ -3,7 +3,7 @@ package SITS.MVC;
 import org.testfx.assertions.api.Assertions;
 
 import java.io.IOException;
-
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class TournamentDashTest implements ViewTransitionModelInterface
 {
-	//int viewCalled = 0;
+	int viewCalled = 0;
 	viewerModel model;
 	ViewTransitionModel tm;
 	
@@ -36,8 +36,10 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	@Start
 	private void start(Stage stage)
 	{
-		//int viewCalled = 0;
+		int viewCalled = 0;
 		model = new viewerModel();
+		
+		Collections.addAll(model.getTournamentList(), mockTournaments);
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/SITS/MVC/Views/TournamentDashboard.fxml"));
@@ -56,21 +58,14 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	}
 
 	@Override
-	public void showConnection() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void showConnection() {}
 
 	@Override
-	public void showTournamentDash() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void showTournamentDash() {}
 
 	@Override
 	public void showViewTournament() {
-		//viewCalled++;
-		
+		viewCalled++;
 	}
 	
 	//I literally just copied this from your repo Dr B.
@@ -89,7 +84,7 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	public void watchTest(FxRobot r)
 	{
 		this.checkIfListViewHasElements(r, "#tournamentListView", mockTournaments);
-		r.clickOn("#refreshButton");
+		//r.clickOn("#refreshButton"); if refresh is called it may do a failed server call
 		r.clickOn("ipd-1");
 		r.clickOn("#watchButton");
 		

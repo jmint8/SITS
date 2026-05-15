@@ -36,8 +36,11 @@ public class TournamentDashController
 		if (subject != null)
 		{
 			// this extracts the id from the string assuming the format is name(id)
-			String id = subject.substring(subject.indexOf("(")+1, subject.indexOf(")"));
-			
+			String id = subject;
+			if (subject.contains("(") && subject.contains(")")) 
+			{
+				id = subject.substring(subject.indexOf("(")+1, subject.indexOf(")"));
+			}
 			model.watchTournament(id);
 			
 			transModel.showViewTournament();
