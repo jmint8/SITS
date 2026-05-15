@@ -101,6 +101,19 @@ class ClientTests {
 		assertTrue(response.getStatusCode().is2xxSuccessful());
 		assertTrue(response.getBody().contains("registered Sixer"));
 		
+		
 	}
+	
+	//test to test the new register and deRegister viewer methods
+	@Test 
+	void registerViewertest()
+	{
+		TournamentServerClient client = new TournamentServerClient("http://localhost:"+port);
+		assertDoesNotThrow(() -> {client.registerViewer("ipd-1", "127.0.0.1", 9095);});
+		assertDoesNotThrow(() -> {client.deRegister("ipd-1", "127.0.0.1", 9095);});
+	}
+	
+	
+	
 
 }

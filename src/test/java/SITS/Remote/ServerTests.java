@@ -74,11 +74,13 @@ class ServerTests {
 	}
 	
 	@Test
-	void testStart()
+	void testStart()throws InterruptedException
 	{
 		String url = "http://localhost:"+port+"/start/ipd-1";
-		ResponseEntity<TournamentResult> response = restTemp.getForEntity(url, TournamentResult.class);
+		ResponseEntity<String> response = restTemp.getForEntity(url, String.class);
 		assertTrue(response.getStatusCode().is2xxSuccessful());
+		assertEquals("tournament started",response.getBody());
+		Thread.sleep(2000);
 		assertEquals(TournamentStatus.COMPLETED, reg.get("ipd-1").getStatus());
 	}
 	
