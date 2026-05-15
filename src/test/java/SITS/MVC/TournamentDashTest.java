@@ -68,25 +68,38 @@ class TournamentDashTest implements ViewTransitionModelInterface
 		viewCalled++;
 	}
 	
-	//I literally just copied this from your repo Dr B.
 	@SuppressWarnings("unchecked")
-	public void checkIfListViewHasElements(FxRobot robot, String target,String elements[])
-	{	
-		ListView<String> lv = (ListView<String>) robot.lookup(target).queryAll().iterator().next();
-		Assertions.assertThat(lv).hasExactlyNumItems(elements.length);
-		for(String i:elements)
-	    {
-	     Assertions.assertThat(lv).hasListCell(i);  
-	    }
+	private ListView<String> getTournamentList(FxRobot robot)
+	{
+		return (ListView<String>) robot.lookup("#tournamentListView").queryAll().iterator().next();
 	}
+	
+	//this was also in your example repo
+	public void checkIfListViewHasElements(FxRobot robot, String[] elements)
+	{
+		ListView<String> lv = getTournamentList(robot);
+		
+		Assertions.assertThat(lv).hasExactlyNumItems(elements.length);
+		
+		for(String i : elements)
+		{
+			Assertions.assertThat(lv).hasListCell(i);
+		}
+	}
+	
+	private void selectItem()
+	{
+		
+	}
+	
 	
 	@Test
 	public void watchTest(FxRobot r)
 	{
-		this.checkIfListViewHasElements(r, "#tournamentListView", mockTournaments);
 		//r.clickOn("#refreshButton"); if refresh is called it may do a failed server call
 		r.clickOn("ipd-1");
 		r.clickOn("#watchButton");
+		
 		
 	}
 }

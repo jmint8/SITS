@@ -99,13 +99,13 @@ public class viewerModel
 	{
 		
 		moves.clear();
-		client.registerViewer(id, viewerIp, viewerPort);
+		if (client !=null) {client.registerViewer(id, viewerIp, viewerPort);}
 		
 	}
 	
 	public void leaveTournament(String id)
 	{
-		client.deRegister(id, viewerIp, viewerPort);
+		if (client !=null) {client.deRegister(id, viewerIp, viewerPort);}
 	}
 	
 	
