@@ -71,11 +71,5 @@ public class viewTournamentController
 		model.postNote(new EmojiNoteStrategy(), "nervy");
 	}
 	
-	
-	
-	
-	
-	
-	
 
 }
