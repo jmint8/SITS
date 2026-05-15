@@ -1,24 +1,14 @@
 package SITS.MVC;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.testfx.assertions.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import java.util.Collections;
-
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.web.servlet.client.RestTestClient;
-import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 import SITS.MVC.Models.ViewTransitionModel;
@@ -26,7 +16,6 @@ import SITS.MVC.Models.viewerModel;
 import SITS.Remote.Server.TournamentServerApp;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -41,33 +30,90 @@ class TestViewNetworkedTournament {
 	viewerModel model;
 	ViewTransitionModel tm;
 	
+
+	
 	@LocalServerPort
 	private int port;
 	
 	@Start
 	private void start(Stage stage)
 	{
-		//Dr. b just loaded the model straight from the url but I set mine.
-		//
+		
 		model = new viewerModel();
-		model.setViewerIp("127.0.0.1");
-		model.setViewerPort(9090);
 		
 		BorderPane root = new BorderPane();
 		tm = new ViewTransitionModel(root, model);
-		
-		Scene s = new Scene(root,800,600);
-		stage.setScene(s);
 		tm.showConnection();
+		
+		Scene s = new Scene(root,600,400);
+		stage.setScene(s);
 		stage.show();
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public void checkIfListViewHasElements(FxRobot robot, String target,String elements[])
+	{
+		ListView<String> lv = (ListView<String>) robot.lookup(target).queryAll().iterator().next();
+		Assertions.assertThat(lv).hasExactlyNumItems(elements.length);
+		for(String i:elements){Assertions.assertThat(lv).hasListCell(i); }		
+	}
 	
 
+	private void clearTextField(FxRobot robot,String selector)
+	  {
+		  TextField tf = robot.lookup(selector).queryAs(TextField.class);
+		  Platform.runLater(()->{tf.clear();});
+		  WaitForAsyncUtils.waitForFxEvents(); 
+	  }
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	private ListView<String> getTournamentList(FxRobot robot)
+	{
+		return (ListView<String>) robot.lookup("#tournamentListView").queryAll().iterator().next();
+	}//using this like I used in the Dashtests
+	
+
+	private void selectItem(FxRobot robot, int index)
+	{
+		Platform.runLater(()->{
+			  ListView<String> grocs = getTournamentList(robot);
+			  grocs.scrollTo(index);
+			  grocs.getSelectionModel().clearAndSelect(index);
+		  });
+		  WaitForAsyncUtils.waitForFxEvents();
+	}//same thing I did in dash tests
+	
+	
+	private void enterText(FxRobot robot, String text, String target) { 
+		clearTextField(robot, target); 
+
+		robot.clickOn(target);
+		robot.write(text); 
+		//lil helper method here
+	}
+	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testNavFX(FxRobot r) {
+		
+		enterText(r, "127.0.0.1","#serverIPtext");
+		enterText(r,String.valueOf(port),"#portText");
+		r.clickOn("#connectButton");
+		Assertions.assertThat(model.getServerIp().get()).isEqualTo("127.0.0.1");
+		Assertions.assertThat(model.getPort().get()).isEqualTo(String.valueOf(port));
+		
+		r.clickOn("#refreshButton");
+		
+		ListView<String> tournatestList = getTournamentList(r);
+		Assertions.assertThat(tournatestList.getItems().isEmpty()).isFalse();
+		
+		selectItem(r,0);
+		r.clickOn("#watchButton");
+		
+		r.clickOn("#backButton");
+		r.clickOn("#refreshButton");
+
 	}
 
 }
