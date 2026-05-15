@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import SITS.MVC.Models.ViewTransitionModel;
 import SITS.MVC.Models.ViewTransitionModelInterface;
@@ -17,6 +18,7 @@ import SITS.MVC.Models.viewerModel;
 import SITS.MVC.Views.TournamentDashController;
 
 import SITS.MVC.main.Main;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -87,10 +89,15 @@ class TournamentDashTest implements ViewTransitionModelInterface
 		}
 	}
 	
-	private void selectItem()
+	private void selectItem(FxRobot robot, int index)
 	{
-		
-	}
+		Platform.runLater(()->{
+			  ListView<String> grocs = getTournamentList(robot);
+			  grocs.scrollTo(index);
+			  grocs.getSelectionModel().clearAndSelect(index);
+		  });
+		  WaitForAsyncUtils.waitForFxEvents();
+	}//literally copy past from your MVC store repo but with the gettournament list
 	
 	
 	@Test
