@@ -1,7 +1,5 @@
 package SITS.MVC;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 
 import org.assertj.core.api.Assertions;
@@ -13,7 +11,7 @@ import org.testfx.framework.junit5.Start;
 
 import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
-import SITS.MVC.Views.connectionController;
+import SITS.MVC.Views.viewTournamentController;
 import SITS.MVC.main.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,7 +36,7 @@ public class viewTournamentTest implements ViewTransitionModelInterface {
 		try {
 			
 			view = loader.load();
-			connectionController cont = loader.getController();
+			viewTournamentController cont = loader.getController();
 			cont.setModel(this, model);
 			
 			Scene s = new Scene(view);
@@ -46,11 +44,6 @@ public class viewTournamentTest implements ViewTransitionModelInterface {
 			stage.show();	
 		} catch (IOException e) {e.printStackTrace();}
 		
-	}
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
 	}
 
 	@Override
@@ -76,8 +69,6 @@ public class viewTournamentTest implements ViewTransitionModelInterface {
 	{
 		r.clickOn("#backButton");
 		Assertions.assertThat(dashCalled).isEqualTo(1);
-		
-		
 	}
 
 }

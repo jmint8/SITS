@@ -84,7 +84,7 @@ class ServerTests {
 		assertEquals(TournamentStatus.COMPLETED, reg.get("ipd-1").getStatus());
 	}
 	
-	
+	//testing for the new endpoints watch and stop watching 
 	
 	
 
