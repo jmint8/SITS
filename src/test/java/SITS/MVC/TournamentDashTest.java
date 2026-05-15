@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class TournamentDashTest implements ViewTransitionModelInterface
 {
-	int viewCalled = 0;
+	//int viewCalled = 0;
 	viewerModel model;
 	ViewTransitionModel tm;
 	
@@ -36,7 +36,7 @@ class TournamentDashTest implements ViewTransitionModelInterface
 	@Start
 	private void start(Stage stage)
 	{
-		int viewCalled = 0;
+		//int viewCalled = 0;
 		model = new viewerModel();
 		
 		FXMLLoader loader = new FXMLLoader();
@@ -69,7 +69,7 @@ class TournamentDashTest implements ViewTransitionModelInterface
 
 	@Override
 	public void showViewTournament() {
-		viewCalled++;
+		//viewCalled++;
 		
 	}
 	
