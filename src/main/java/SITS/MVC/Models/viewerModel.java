@@ -35,10 +35,6 @@ public class viewerModel
 	public void setViewerPort(int port){this.viewerPort = port;} 
 	public int getViewerPort(){ return viewerPort;} 
 	
-	
-	
-	
-	
 	public void setConnectionParts(String ip, String p)
 	{
 		serverIp.set(ip);
@@ -108,11 +104,15 @@ public class viewerModel
 	}
 	
 	
+	// sprint 4 content for the strategy pattern post to listview
 	
+	ObservableList<String> notes = FXCollections.observableArrayList();
+	public ObservableList<String> getNotesList(){return notes;} 
 	
-	
-	
-	
+	public void postNote(NoteStrategy strat, String input) {
+		String note = strat.createNote(input);
+		notes.add(note);
+	}
 	
 	
 	
