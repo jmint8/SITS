@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import SITS.MVC.Models.EmojiNoteStrategy;
 import SITS.MVC.Models.NoteStrategy;
-import SITS.MVC.Models.NoteStrategyInterface;
 
 public class viewTournamentController 
 {
@@ -28,6 +27,7 @@ public class viewTournamentController
 		this.model = newModel;
 		
 		moveListView.setItems(model.getMoveList());
+		notesListView.setItems(model.getNotesList());
 	}
 	
 	@FXML
@@ -51,19 +51,24 @@ public class viewTournamentController
 	@FXML
 	void onPostClick()
 	{
-		
+		String text = noteInput.getText();
+		if (text != null)
+		{
+			model.postNote(new NoteStrategy(), text);
+			noteInput.clear();
+		}
 	}
 	
 	@FXML
 	void onSmileyClick()
 	{
-		
+		model.postNote(new EmojiNoteStrategy(), "smiley");
 	}
 	
 	@FXML
 	void onNervyClick()
 	{
-		
+		model.postNote(new EmojiNoteStrategy(), "nervy");
 	}
 	
 	

@@ -109,7 +109,7 @@ public class viewerModel
 	ObservableList<String> notes = FXCollections.observableArrayList();
 	public ObservableList<String> getNotesList(){return notes;} 
 	
-	public void postNote(NoteStrategy strat, String input) {
+	public void postNote(NoteStrategyInterface strat, String input) {
 		String note = strat.createNote(input);
 		notes.add(note);
 	}
