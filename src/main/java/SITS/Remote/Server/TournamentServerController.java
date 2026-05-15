@@ -86,8 +86,5 @@ public class TournamentServerController
 		tourna.removeViewer(body.ip, body.port);
 		return ResponseEntity.ok("viewer was de registered");
 	}
-
-	
-	
 	
 }
