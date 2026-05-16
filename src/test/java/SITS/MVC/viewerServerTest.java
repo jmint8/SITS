@@ -11,15 +11,21 @@ import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-
+import org.testfx.util.WaitForAsyncUtils;
 
 import SITS.MVC.main.Main;
-
+import SITS.Actions.AlwaysCooperate;
+import SITS.Actions.AlwaysDefect;
+import SITS.Actions.PrisonerAction;
+import SITS.Game.ItteratedPrisonersDilemma;
+import SITS.Game.RoundRobin;
 import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
 import SITS.MVC.Views.viewTournamentController;
 import SITS.MVC.main.viewerServer;
+import SITS.Remote.Network.dto.RegistrationRequest;
 import SITS.Remote.Network.dto.RoundResultDTO;
+import SITS.Remote.Server.NetworkedTournament;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -66,7 +72,6 @@ class viewerServerTest implements ViewTransitionModelInterface {
 		
 		}catch(Exception e){e.printStackTrace();} 
 		
-		
 	}
 	
 
@@ -107,6 +112,7 @@ class viewerServerTest implements ViewTransitionModelInterface {
 		
 		
 		restTemp.put(url,new RoundResultDTO("COOPERATE" ,"DEFECT",0,10)); 
+		WaitForAsyncUtils.waitForFxEvents();
 		this.checkIfListViewHasElements(r, expectMove1); 
 		restTemp.put(url,new RoundResultDTO("DEFECT","DEFECT",1 , 1)); 
 		
@@ -114,6 +120,26 @@ class viewerServerTest implements ViewTransitionModelInterface {
 		//assertTrue(model.getMoveList().get(0).contains("COOPERATE"));
 		
 	}
+	
+	@Test
+	public void pushMovesTest(FxRobot r) {
+		NetworkedTournament tourna = new NetworkedTournament("testing-pushmoves","MovePush test",
+				new RoundRobin(),new ItteratedPrisonersDilemma(1),PrisonerAction::valueOf);
+		
+		
+		tourna.addParticipant(new AlwaysCooperate());
+		tourna.addParticipant(new AlwaysDefect());
+		
+		tourna.addViewer("localhost", port);
+		tourna.start();
+		WaitForAsyncUtils.waitForFxEvents();
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		String[] expectMove1 = {"P1:COOPERATE P2:DEFECT | P1 score: 0 P2 score: 10"};
+		this.checkIfListViewHasElements(r, expectMove1); 
+		
+	}
+	
 	
 	
 	

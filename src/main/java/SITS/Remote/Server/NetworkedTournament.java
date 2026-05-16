@@ -66,6 +66,9 @@ public class NetworkedTournament {
 		participants.add(remote);
 	}
 	
+	
+	public void addParticipant(Participant p){participants.add(p);} //this is a testing method
+	
 	public void addViewer(String ip, int port) {
 		String url ="http://"+ip+":"+port;
 		if (!viewers.contains(url)) {
