@@ -19,6 +19,14 @@ public class viewTournamentController
 	private Button backButton;
 	
 	@FXML
+	private Button smileyButton;
+	@FXML
+	private Button nervyButton;
+	@FXML
+	private Button postButton;
+	
+	
+	@FXML
 	private ListView<String> moveListView;
 	
 	public void setModel(ViewTransitionModelInterface tModel,viewerModel newModel )
