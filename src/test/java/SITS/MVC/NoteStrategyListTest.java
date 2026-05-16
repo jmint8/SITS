@@ -1,20 +1,19 @@
 package SITS.MVC;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.testfx.assertions.api.Assertions;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.assertions.api.Assertions;
+
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
 import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
-import SITS.MVC.Views.connectionController;
 import SITS.MVC.Views.viewTournamentController;
 import SITS.MVC.main.Main;
 import javafx.application.Platform;
@@ -38,7 +37,7 @@ class NoteStrategyListTest implements ViewTransitionModelInterface{
 		dashCalled = 0;
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/SITS/MVC/Views/connection.fxml"));
+		loader.setLocation(Main.class.getResource("/SITS/MVC/Views/viewTournament.fxml"));
 		Pane view;
 		try {
 			
@@ -96,7 +95,38 @@ class NoteStrategyListTest implements ViewTransitionModelInterface{
 	}
 	
 	
+	@Test
+	public void testNotextPost(FxRobot r)
+	{
+		enterText(r,"okay","#noteInput");
+		r.clickOn("#postButton");
+		
+		String[] exp = {"okay"};
+		checkIfListViewHasElements(r,"#notesListView", exp); 
+		
+	}
 	
-
+	@Test
+	public void testSmileyPost(FxRobot r)
+	{
+		r.clickOn("#smileyButton");
+		String[] exp = {"😄"};
+		checkIfListViewHasElements(r,"#notesListView", exp);
+		r.clickOn("#smileyButton");
+		String[] exp2 = {"😄","😄"};
+		checkIfListViewHasElements(r,"#notesListView", exp2);
+	}
+	
+	@Test
+	public void testNerveyPost(FxRobot r)
+	{
+		r.clickOn("#nervyButton");
+		String[] exp = {"😅"};
+		checkIfListViewHasElements(r,"#notesListView", exp);
+		r.clickOn("#nervyButton");
+		
+		String[] exp2 = {"😅","😅"};
+		checkIfListViewHasElements(r,"#notesListView", exp2);
+	}
 	
 }
