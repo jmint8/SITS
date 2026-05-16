@@ -21,7 +21,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
+//
+//
+// When this test class runs in bulk it will fail because the UI doesnt load immediately
+//
+//
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
 		classes = TournamentServerApp.class)
 @ExtendWith(ApplicationExtension.class)
@@ -29,8 +33,6 @@ class TestViewNetworkedTournament {
 
 	viewerModel model;
 	ViewTransitionModel tm;
-	
-
 	
 	@LocalServerPort
 	private int port;
@@ -48,6 +50,7 @@ class TestViewNetworkedTournament {
 		Scene s = new Scene(root,600,400);
 		stage.setScene(s);
 		stage.show();
+		stage.toFront();//an attempt to make the UI available to the robot
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -96,10 +99,12 @@ class TestViewNetworkedTournament {
 	
 	@Test
 	void testNavFX(FxRobot r) {
-		
+		r.sleep(10000);//in timeout for a second in hopes the Ui will load in
+		WaitForAsyncUtils.waitForFxEvents();
 		enterText(r, "127.0.0.1","#serverIPtext");
 		enterText(r,String.valueOf(port),"#portText");
 		r.clickOn("#connectButton");
+		WaitForAsyncUtils.waitForFxEvents();
 		Assertions.assertThat(model.getServerIp().get()).isEqualTo("127.0.0.1");
 		Assertions.assertThat(model.getPort().get()).isEqualTo(String.valueOf(port));
 		
@@ -110,10 +115,10 @@ class TestViewNetworkedTournament {
 		
 		selectItem(r,0);
 		r.clickOn("#watchButton");
-		
+		WaitForAsyncUtils.waitForFxEvents(); // im adding these everywhere 
+		//because when I run all the tests in bulk some of them fail because the UI Stage doesnt load
 		r.clickOn("#backButton");
 		r.clickOn("#refreshButton");
-
 	}
 
 }
