@@ -88,7 +88,7 @@ class NoteStrategyListTest implements ViewTransitionModelInterface{
 	}
 	
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	private ListView<String> getNotesListView(FxRobot r)
 	{
 		return (ListView<String>)r.lookup("#notesListView").queryAll().iterator().next();

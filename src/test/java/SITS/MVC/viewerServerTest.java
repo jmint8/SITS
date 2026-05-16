@@ -23,7 +23,6 @@ import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
 import SITS.MVC.Views.viewTournamentController;
 import SITS.MVC.main.viewerServer;
-import SITS.Remote.Network.dto.RegistrationRequest;
 import SITS.Remote.Network.dto.RoundResultDTO;
 import SITS.Remote.Server.NetworkedTournament;
 import javafx.fxml.FXMLLoader;
