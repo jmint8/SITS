@@ -1,25 +1,25 @@
 package SITS.MVC;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.web.client.RestTemplate;
 import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import com.sun.tools.javac.Main;
+
+import SITS.MVC.main.Main;
 
 import SITS.MVC.Models.ViewTransitionModelInterface;
 import SITS.MVC.Models.viewerModel;
 import SITS.MVC.Views.viewTournamentController;
 import SITS.MVC.main.viewerServer;
+import SITS.Remote.Network.dto.RoundResultDTO;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -39,6 +39,8 @@ class viewerServerTest implements ViewTransitionModelInterface {
 	
 	@LocalServerPort
 	private int port;
+	
+	private RestTemplate restTemp = new RestTemplate();
 	
 	@Start
 	private void start(Stage stage)
@@ -98,18 +100,20 @@ class viewerServerTest implements ViewTransitionModelInterface {
 	@Test
 	public void updatingMovesEnpoint(FxRobot r)
 	{
-		String url = "http://:"+port+"/updateMoveList";
+		String url = "http://localhost:"+port+"/updateMoveList"; 
+		String[] expectMove1 ={"P1:COOPERATE P2:DEFECT | P1 score: 0 P2 score: 10"};
+		String[] expectMove2 = {"P1:COOPERATE P2:DEFECT | P1 score: 0 P2 score: 10",
+				"P1:DEFECT P2:DEFECT | P1 score: 1 P2 score: 1"};
 		
+		
+		restTemp.put(url,new RoundResultDTO("COOPERATE" ,"DEFECT",0,10)); 
+		this.checkIfListViewHasElements(r, expectMove1); 
+		restTemp.put(url,new RoundResultDTO("DEFECT","DEFECT",1 , 1)); 
+		
+		this.checkIfListViewHasElements(r, expectMove2); 
+		//assertTrue(model.getMoveList().get(0).contains("COOPERATE"));
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
